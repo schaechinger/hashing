@@ -1,0 +1,37 @@
+TODO - hashing
+==============
+
+Version 1.0
+-----------
+[x] seperate file for accessPath (*.ap)
+[x] accessPath in AccessPath object with seperate stream
+[x] huge prime number for b
+    [x] 2^31 - 1  int     2147483647
+    [x] 2^61 - 1  long    2305843009213693951
+    [ ] 2^89 - 1          618970019642690137449562111
+    [ ] 2^127 - 1 large   170141183460469231731687303715884105727
+
+
+HOLEN
+[x] Hash berechnen
+[ ] Index aus Tabelle
+[ ] Bucket offset aus Tabelle
+[ ] Bucket aus Datei
+
+EINFÜGEN
+[ ] Hash berechnen
+[ ] Index aus Tabelle
+[ ] Bucket lesen
+    [ ] Kein Platz:
+        [ ] Lokale Tiefe++
+        [ ] splitte Bucket
+        [ ] lokale Tiefe:
+            [ ] > globale Tiefe
+                [ ] Tabelle organisieren
+            [ ] <= globale Tiefe
+                [ ] Tabelle aktualisieren
+
+ACCESSPATH
+[ ] OffsetForHash(large hash);
+[ ] increaseLocalDepth(large index);
+[ ] splitBucket(large index, large bucket);

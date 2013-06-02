@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		6434649617380A1600BB059D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6434649517380A1600BB059D /* main.cpp */; };
 		6434649817380A1600BB059D /* hashing.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6434649717380A1600BB059D /* hashing.1 */; };
+		647F500D1744195600FFB34B /* accesspath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 647F500B1744195600FFB34B /* accesspath.cpp */; };
+		64B8DF9B1742D800007FDF4F /* client.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64B8DF991742D800007FDF4F /* client.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,9 +27,20 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		641DBA8C17534D630011D402 /* hashing.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = hashing.md; path = hashing/hashing.md; sourceTree = "<group>"; };
 		6434649217380A1600BB059D /* hashing */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = hashing; sourceTree = BUILT_PRODUCTS_DIR; };
 		6434649517380A1600BB059D /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		6434649717380A1600BB059D /* hashing.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; name = hashing.1; path = ../hashing.1; sourceTree = "<group>"; };
+		6441C4D1175BA89600856196 /* helper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = helper.h; sourceTree = "<group>"; };
+		647F500B1744195600FFB34B /* accesspath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = accesspath.cpp; sourceTree = "<group>"; };
+		647F500C1744195600FFB34B /* accesspath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = accesspath.h; sourceTree = "<group>"; };
+		64B8DF971742D7FA007FDF4F /* bucket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bucket.h; sourceTree = "<group>"; };
+		64B8DF991742D800007FDF4F /* client.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = client.cpp; sourceTree = "<group>"; };
+		64B8DF9A1742D800007FDF4F /* client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = client.h; sourceTree = "<group>"; };
+		64B8DF9E1742E408007FDF4F /* hashdat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hashdat.h; sourceTree = "<group>"; };
+		64C0D044174CEA040084A98E /* TODO */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TODO; path = hashing/TODO; sourceTree = "<group>"; };
+		64D59D6A174D75EE00ED6CFB /* hashfile.txt.ap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = hashfile.txt.ap; path = ../../../../../Users/Manuel/hashfile.txt.ap; sourceTree = "<group>"; };
+		64FBF57C174525010014B305 /* hashfile.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = hashfile.txt; path = ../../../../../Users/Manuel/hashfile.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +57,10 @@
 		6434648917380A1600BB059D = {
 			isa = PBXGroup;
 			children = (
+				641DBA8C17534D630011D402 /* hashing.md */,
+				64C0D044174CEA040084A98E /* TODO */,
+				64FBF57C174525010014B305 /* hashfile.txt */,
+				64D59D6A174D75EE00ED6CFB /* hashfile.txt.ap */,
 				6434649417380A1600BB059D /* hashing */,
 				6434649317380A1600BB059D /* Products */,
 			);
@@ -60,19 +77,50 @@
 		6434649417380A1600BB059D /* hashing */ = {
 			isa = PBXGroup;
 			children = (
-				6434649E17380A5100BB059D /* hash */,
+				64B8DF931742D7D5007FDF4F /* bucket */,
+				64B8DF951742D7E1007FDF4F /* client */,
+				64B8DF9C1742E3FE007FDF4F /* hashdat */,
 				6434649517380A1600BB059D /* main.cpp */,
 				6434649717380A1600BB059D /* hashing.1 */,
+				6441C4D1175BA89600856196 /* helper.h */,
 			);
 			name = hashing;
 			path = hashing/src;
 			sourceTree = "<group>";
 		};
-		6434649E17380A5100BB059D /* hash */ = {
+		647F5007174418FE00FFB34B /* accesspath */ = {
 			isa = PBXGroup;
 			children = (
+				647F500B1744195600FFB34B /* accesspath.cpp */,
+				647F500C1744195600FFB34B /* accesspath.h */,
 			);
-			name = hash;
+			name = accesspath;
+			sourceTree = "<group>";
+		};
+		64B8DF931742D7D5007FDF4F /* bucket */ = {
+			isa = PBXGroup;
+			children = (
+				64B8DF971742D7FA007FDF4F /* bucket.h */,
+			);
+			name = bucket;
+			sourceTree = "<group>";
+		};
+		64B8DF951742D7E1007FDF4F /* client */ = {
+			isa = PBXGroup;
+			children = (
+				64B8DF991742D800007FDF4F /* client.cpp */,
+				64B8DF9A1742D800007FDF4F /* client.h */,
+			);
+			name = client;
+			sourceTree = "<group>";
+		};
+		64B8DF9C1742E3FE007FDF4F /* hashdat */ = {
+			isa = PBXGroup;
+			children = (
+				647F5007174418FE00FFB34B /* accesspath */,
+				64B8DF9E1742E408007FDF4F /* hashdat.h */,
+			);
+			name = hashdat;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,6 +175,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6434649617380A1600BB059D /* main.cpp in Sources */,
+				64B8DF9B1742D800007FDF4F /* client.cpp in Sources */,
+				647F500D1744195600FFB34B /* accesspath.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,6 +273,7 @@
 				6434649D17380A1600BB059D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
