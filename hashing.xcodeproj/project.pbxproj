@@ -34,13 +34,13 @@
 		6441C4D1175BA89600856196 /* helper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = helper.h; sourceTree = "<group>"; };
 		647F500B1744195600FFB34B /* accesspath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = accesspath.cpp; sourceTree = "<group>"; };
 		647F500C1744195600FFB34B /* accesspath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = accesspath.h; sourceTree = "<group>"; };
+		648D9090176474D70022F71B /* hashfile.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = hashfile.txt; path = ../../../Documents/hashfile.txt; sourceTree = "<group>"; };
 		64B8DF971742D7FA007FDF4F /* bucket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bucket.h; sourceTree = "<group>"; };
 		64B8DF991742D800007FDF4F /* client.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = client.cpp; sourceTree = "<group>"; };
 		64B8DF9A1742D800007FDF4F /* client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = client.h; sourceTree = "<group>"; };
 		64B8DF9E1742E408007FDF4F /* hashdat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hashdat.h; sourceTree = "<group>"; };
 		64C0D044174CEA040084A98E /* TODO */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TODO; path = hashing/TODO; sourceTree = "<group>"; };
-		64D59D6A174D75EE00ED6CFB /* hashfile.txt.ap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = hashfile.txt.ap; path = ../../../../../Users/Manuel/hashfile.txt.ap; sourceTree = "<group>"; };
-		64FBF57C174525010014B305 /* hashfile.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = hashfile.txt; path = ../../../../../Users/Manuel/hashfile.txt; sourceTree = "<group>"; };
+		64D59D6A174D75EE00ED6CFB /* hashfile.txt.ap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = hashfile.txt.ap; path = ../../../Documents/hashfile.txt.ap; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +59,7 @@
 			children = (
 				641DBA8C17534D630011D402 /* hashing.md */,
 				64C0D044174CEA040084A98E /* TODO */,
-				64FBF57C174525010014B305 /* hashfile.txt */,
+				648D9090176474D70022F71B /* hashfile.txt */,
 				64D59D6A174D75EE00ED6CFB /* hashfile.txt.ap */,
 				6434649417380A1600BB059D /* hashing */,
 				6434649317380A1600BB059D /* Products */,
@@ -81,8 +81,8 @@
 				64B8DF951742D7E1007FDF4F /* client */,
 				64B8DF9C1742E3FE007FDF4F /* hashdat */,
 				6434649517380A1600BB059D /* main.cpp */,
-				6434649717380A1600BB059D /* hashing.1 */,
 				6441C4D1175BA89600856196 /* helper.h */,
+				6434649717380A1600BB059D /* hashing.1 */,
 			);
 			name = hashing;
 			path = hashing/src;

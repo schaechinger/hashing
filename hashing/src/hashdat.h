@@ -14,6 +14,7 @@
 #include "accesspath.h"
 
 
+// hashdat manages the access to the data file
 template<int count>
 class HashDat
 {
@@ -92,7 +93,10 @@ HashDat<count>::HashDat(string filename)
     
     if (!_stream.is_open())
     {
-        _stream.open(filename.c_str(), ios::out | ios::in | ios::trunc);
+        FILE *file = fopen(filename.c_str(), "w");
+        fprintf(file, "");
+        fclose(file);
+        _stream.open(filename.c_str(), ios::out | ios::in | ios::ate);
     }
     
     bucketIndex = 0;
@@ -106,6 +110,15 @@ void HashDat<count>::insert(Client client)
     large hash = _bucket.hash(client.clientId());
     _bucket.read(_accessPath.offsetForHash(hash), _stream);
     
+    // check if client exists in bucket
+    for (int i = 0; i < _bucket.filled(); i++)
+    {
+        if (_bucket.slot(i).clientId() == client.clientId())
+        {
+            throw BadArticleException();
+        }
+    }
+    
     // try to put the data in a free slot
     if (!_bucket.fillSlot(client))
     {
@@ -117,7 +130,7 @@ void HashDat<count>::insert(Client client)
         _accessPath.splitBucket(index, _stream.tellp());
         
         // split the bucket
-        for (int i = count - 1; i > 0; i--)
+        for (int i = count - 1; i >= 0; i--)
         {
             if (_accessPath.indexForHash(_bucket.hash(_bucket.slot(i).
                                                       clientId())) != index)
@@ -178,18 +191,38 @@ Client HashDat<count>::retrieve(int clientId)
 template<int count>
 void HashDat<count>::show()
 {
-    int bucketSize = count * (2 * sizeof(int) + MAX_LENGTH);
     large offset = 0;
-    large index = 0;
+    large i = 0;
+    bool first = true;
     
-    while ((offset = _accessPath.offsetAtIndex(index++)) != -1)
+    while (true)
     {
-        _bucket.read(offset, _stream);
-        for (int i = 0; i < _bucket.filled(); i++)
+        large localOffset = _accessPath.offsetAtIndex(i);
+        
+        if (localOffset == -1)
         {
-            _bucket.slot(i).show();
+            break;
         }
-        offset += bucketSize;
+        
+        cout << " --- bucket " << i++ << " ("
+             << localOffset << ") ---" << endl;
+        
+        if (localOffset > offset || first)
+        {
+            offset = localOffset;
+            _bucket.read(offset, _stream);
+            
+            for (int index = 0; index < _bucket.filled(); index++)
+            {
+                _bucket.slot(index).show();
+            }
+            
+            first = false;
+        }
+        else
+        {
+            cout << "linker path" << endl << endl;
+        }
     }
 }
 

@@ -14,6 +14,8 @@
 
 #define MAX_LENGTH 50
 
+// client represents the data of a persion with his name,
+// client id and discount.
 class Client
 {
 private:

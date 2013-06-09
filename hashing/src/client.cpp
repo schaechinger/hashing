@@ -68,7 +68,8 @@ void Client::show()
 {
     cout << "Client: " << _name << endl
          << "#" << _clientId << endl
-         << "discount: " << _discount << endl;
+         << "discount: " << _discount << endl
+         << endl;
 }
 
 

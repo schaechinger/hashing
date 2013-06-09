@@ -9,6 +9,11 @@
 #ifndef hashing_helper_h
 #define hashing_helper_h
 
-#define LOG true
+// enable logging mode
+#define LOG false
+// enable warnings
+#define WARN false
+// the version of the program
+#define VERSION "1.0"
 
 #endif

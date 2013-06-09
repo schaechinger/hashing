@@ -27,7 +27,10 @@ void AccessPath::open(string filename)
     // if the file does not exist create a new one
     if (!_stream.is_open())
     {
-        _stream.open(filename.c_str(), ios::in | ios::out | ios::trunc);
+        FILE *file = fopen(filename.c_str(), "w");
+        fprintf(file, "");
+        fclose(file);
+        _stream.open(filename.c_str(), ios::in | ios::out | ios::ate);
     }
     // load existing paths
     else
@@ -39,23 +42,28 @@ void AccessPath::open(string filename)
 
 large AccessPath::indexForHash(large hash)
 {
+    // there are now access paths
     if (_globalDepth == 0)
     {
         return 0;
     }
     else
     {
-        cout << "index: " << hash % bitMask()
-             << " for hash: " << hash
-             << " | mask: " << bitMask()
-             << endl;
-        return hash % bitMask();
+        if (LOG)
+        {
+            cout << "index: " << (hash & bitMask())
+                 << " for hash: " << hash
+                 << " | mask: " << bitMask()
+                 << endl;
+        }
+        return (hash & bitMask());
     }
 }
 
 
 large AccessPath::offsetAtIndex(large index)
 {
+    // the index is out of range
     if (index >= _count)
     {
         return -1;
@@ -69,6 +77,7 @@ large AccessPath::offsetAtIndex(large index)
 
 large AccessPath::offsetForHash(large hash)
 {
+    // there is no access path
     if (_globalDepth == 0)
     {
         return 0;
@@ -82,12 +91,22 @@ large AccessPath::offsetForHash(large hash)
 
 void AccessPath::splitBucket(large index, large offset)
 {
-    // increase the bucket's local depth
-    _paths[index].localDepth++;
+    if (_globalDepth == 0)
+    {
+        updatePath(0);
+    }
+    else
+    {
+        // increase the bucket's local depth
+        _paths[index].localDepth++;
+    }
+    
+    // reorganize the table if needed
     if (_paths[index].localDepth > _globalDepth)
     {
         reorganize();
     }
+    
     // update the new path
     _paths[_count/2+index].offset = offset;
 }
@@ -107,7 +126,10 @@ void AccessPath::updatePath(large index, large offset, long localDepth)
     p.localDepth = localDepth;
     _paths[index] = p;
     
-    cout << "updated path " << index << endl;
+    if (LOG)
+    {
+        cout << "updated path " << index << endl;
+    }
 }
 
 
@@ -137,6 +159,7 @@ void AccessPath::reorganize(long globalDepth)
         oldSize = 1;
     }
     
+    // copy the content of the access path to a new array with the new length
     Path *ap = new Path[_count];
     for (large l = 0; l < _count; l++)
     {
@@ -145,7 +168,10 @@ void AccessPath::reorganize(long globalDepth)
     delete[] _paths;
     _paths = ap;
     
-    cout << "reorganized accessPath to d = " << _globalDepth << endl;
+    if (LOG)
+    {
+        cout << "reorganized accessPath to d = " << _globalDepth << endl;
+    }
 }
 
 
@@ -166,9 +192,13 @@ void AccessPath::load()
         return;
     }
     
+    // calculate the number of access path in the file
     _count = available / size;
+    // calculate the global depth
     _globalDepth = sqrt(_count);
+    // create a new path array
     _paths = new Path[_count];
+    // save the number of paths if it increases
     large count = _count;
     
     for (large l = 0; l < count; l++)
@@ -191,7 +221,10 @@ void AccessPath::load()
         updatePath(l, offset, localDepth);
     }
     
-    show();
+    if (LOG)
+    {
+        show();
+    }
 }
 
 
@@ -217,7 +250,10 @@ void AccessPath::save()
             buf[j+sizeof(p.localDepth)] = (char) (offset - 128);
         }
         
-        cout << "SAVE " << p.offset << " :: " << buf << endl;
+        if (LOG)
+        {
+            cout << "SAVE " << p.offset << " :: " << buf << endl;
+        }
         
         _stream.write(buf, size);
     }
@@ -242,5 +278,5 @@ void AccessPath::show()
 
 large AccessPath::bitMask()
 {
-    return (1 << _globalDepth) - 1;
+    return (large) ((1 << _globalDepth) - 1);
 }

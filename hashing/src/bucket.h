@@ -23,7 +23,6 @@
 typedef long large;
 
 // the maximum number of buckets depending on the size of large
-//#define b exp2(sizeof(large) * 8 - 1) - 1
 #define b 2147483647
 // the fibonaccy quotient
 #define r (sqrt(5) - 1) / 2
@@ -49,13 +48,16 @@ public:
     // writes the bucket with it's data to the hashfile
     void write(large l, std::fstream& stream);
     
+    // retrieve the client at the given slot
     Client slot(int i);
+    // add a client to the bucket
     bool fillSlot(Client client);
-    int fullSlots();
+    // return the number of filled slots
+    int filled();
+    // remove the client in the given slot
     Client remove(int i);
     
-    int filled();
-    
+    // reurn the hash value for the given key
     large hash(int k);
 };
 
@@ -183,7 +185,7 @@ Client Bucket<count>::slot(int i)
 {
     if (i >= count)
     {
-        if (LOG)
+        if (WARN)
         {
             cout << "WARNING: slot index too big!" << endl;
         }
@@ -191,7 +193,7 @@ Client Bucket<count>::slot(int i)
     }
     else if (i >= nextFree)
     {
-        if (LOG)
+        if (WARN)
         {
             cout << "WARNING: slot " << i << " is free!" << endl;
         }
@@ -207,17 +209,19 @@ Client Bucket<count>::slot(int i)
 template<int count>
 bool Bucket<count>::fillSlot(Client client)
 {
+    // bucket is full
     if (nextFree == count)
     {
-        if (LOG)
+        if (WARN)
         {
             cout << "WARNING: no empty slot!" << endl;
         }
     }
+    // client is empty
     else if (client.clientId() == 0 &&
              client.name() == "")
     {
-        if (LOG)
+        if (WARN)
         {
             cout << "WARNING: empty client!" << endl;
         }
@@ -229,13 +233,6 @@ bool Bucket<count>::fillSlot(Client client)
     }
     
     return false;
-}
-
-
-template<int count>
-int Bucket<count>::fullSlots()
-{
-    return nextFree;
 }
 
 

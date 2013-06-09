@@ -11,14 +11,16 @@
 #include "hashdat.h"
 
 
+// the number of slots in one bucket
 #define COUNT 3
-#define EXIT_CODE COUNT + 1
+// the index of exit in the menu
+#define EXIT_CODE 4
 
 using namespace std;
 
 void menu()
 {
-	cout << "Hashing" << endl
+	cout << "Hashing v" << VERSION << endl
     << "┌───┬────menu───────┐" << endl
     << "│ 0 │ clear         │" << endl
     << "├───┼───────────────┤" << endl
@@ -33,16 +35,22 @@ void menu()
 
 
 int main(int argc, const char * argv[])
-{   
-//    cout << "Filename: ";
-    string filename = "/Users/Manuel/hashfile.txt";
-//    cin >> filename;
+{
+    // default path for the data and access path files
+    string path = "/Users/Manuel/Documents";
     
+    string filename =  path.append("/hashfile.txt");
+    
+    // hash has access to all the data
     HashDat<COUNT> hash(filename);
     
+    // the selected menu index
 	int selection = -1;
+    // the index of a client
     int clientId;
+    // the discount of a client
     int discount;
+    // the name of a client
     string name;
     
     // display the menu
@@ -94,20 +102,24 @@ int main(int argc, const char * argv[])
                 nfe.description();
             }
         }
+        // show
         else if (selection == 3)
         {
             hash.show();
         }
+        // exit
         else if (selection == EXIT_CODE)
         {
             
         }
+        // clear
         else if (selection == 0)
         {
             system("clear");
             // display the menu
             menu();
         }
+        // unknown index
         else
         {
             cout << "'" << selection << "' is not defined!" << endl;
