@@ -51,11 +51,17 @@ private:
 public:
     // initialize the accessPath
     AccessPath();
-    
+    // destroys the access path object with the paths array
+    ~AccessPath();
+
     // get the bitMask for the current global depth
-    large bitMask();
+    // or the local depth if given
+    large bitMask(long localDepth = -1);
     // get the index for the given hash
     large indexForHash(large hash);
+    // get the index for the given hash using the local depth
+    // used to split a full bucket
+    large indexForHashUsingLocalDepth(large hash, large oldIndex);
     // get the offset of the bucket at the given index
     large offsetAtIndex(large index);
     // get the offset of the bucket with the prefered data

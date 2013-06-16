@@ -8,6 +8,8 @@
 
 #include "accesspath.h"
 
+#include <math.h>
+
 
 using namespace std;
 
@@ -15,6 +17,12 @@ AccessPath::AccessPath()
 {
     _globalDepth = 0;
     _count = 0;
+}
+
+
+AccessPath::~AccessPath()
+{
+    delete [] _paths;
 }
 
 
@@ -57,6 +65,27 @@ large AccessPath::indexForHash(large hash)
                  << endl;
         }
         return (hash & bitMask());
+    }
+}
+
+
+large AccessPath::indexForHashUsingLocalDepth(large hash, large oldIndex)
+{
+    // there are now access paths
+    if (_globalDepth == 0)
+    {
+        return 0;
+    }
+    else
+    {
+        if (LOG)
+        {
+            cout << "index uld: " << (hash & bitMask(_paths[oldIndex].localDepth))
+            << " for hash: " << hash
+            << " | mask: " << bitMask(_paths[oldIndex].localDepth)
+            << endl;
+        }
+        return (hash & bitMask(_paths[oldIndex].localDepth));
     }
 }
 
@@ -125,11 +154,6 @@ void AccessPath::updatePath(large index, large offset, long localDepth)
     p.offset = offset;
     p.localDepth = localDepth;
     _paths[index] = p;
-    
-    if (LOG)
-    {
-        cout << "updated path " << index << endl;
-    }
 }
 
 
@@ -195,7 +219,7 @@ void AccessPath::load()
     // calculate the number of access path in the file
     _count = available / size;
     // calculate the global depth
-    _globalDepth = sqrt(_count);
+    _globalDepth = log2l(_count);
     // create a new path array
     _paths = new Path[_count];
     // save the number of paths if it increases
@@ -259,7 +283,6 @@ void AccessPath::save()
     }
     
     _stream.flush();
-    
     _stream.close();
 }
 
@@ -276,7 +299,16 @@ void AccessPath::show()
 }
 
 
-large AccessPath::bitMask()
+large AccessPath::bitMask(long localDepth)
 {
-    return (large) ((1 << _globalDepth) - 1);
+    // calculate the bitmask for the global depth
+    if (localDepth == -1)
+    {
+        return (large) ((1 << _globalDepth) - 1);
+    }
+    // bitmask using the local depth
+    else
+    {
+        return (large) ((1 << localDepth) - 1);
+    }
 }

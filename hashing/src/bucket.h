@@ -108,6 +108,10 @@ bool Bucket<count>::read(large l, fstream& stream)
         
         stream.read(buf, size);
         string name = buf;
+        if (LOG)
+        {
+            cout << "   " << name << endl;
+        }
         
         Client client(clientId);
         client.setDiscount(discount);
@@ -137,6 +141,7 @@ void Bucket<count>::write(large l, fstream& stream)
     
     for (int i = 0; i < count; i++)
     {
+        // free slot
         if (i >= nextFree)
         {
             for (int i = 0; i < 2 * sizeof(int); i++)
@@ -152,6 +157,8 @@ void Bucket<count>::write(large l, fstream& stream)
         {
             client = slot(i);
             
+            // write clientId and discount to the file
+            // every int used 4 bytes
             for (int j = 0; j < sizeof(int); j++)
             {
                 short clientId = client.clientId() >> (sizeof(int) - j - 1) * 8;
@@ -160,7 +167,12 @@ void Bucket<count>::write(large l, fstream& stream)
                 buf[j+sizeof(int)] = (char) (discount - 128);
             }
             
+            // write the name to the file
             string name = client.name();
+            if (LOG)
+            {
+                cout << "   " << name << endl;
+            }
             for (int j = 0; j < MAX_LENGTH; j++)
             {
                 char c = name[j];

@@ -129,18 +129,18 @@ void HashDat<count>::insert(Client client)
         _stream.seekp(0, ios::end);
         _accessPath.splitBucket(index, _stream.tellp());
         
-        // split the bucket
+        // split the clients of the bucket
         for (int i = count - 1; i >= 0; i--)
         {
-            if (_accessPath.indexForHash(_bucket.hash(_bucket.slot(i).
-                                                      clientId())) != index)
+            if (_accessPath.indexForHashUsingLocalDepth(_bucket.hash(_bucket.slot(i).
+                                                      clientId()), index) != index)
             {
                 bucket.fillSlot(_bucket.remove(i));
             }
         }
         
         bool success;
-        if (_accessPath.indexForHash(hash) != index)
+        if (_accessPath.indexForHashUsingLocalDepth(hash, index) != index)
         {
             success = bucket.fillSlot(client);
         }
@@ -149,7 +149,10 @@ void HashDat<count>::insert(Client client)
             success = _bucket.fillSlot(client);
         }
         
-        cout << "_bucket " << _bucket.filled() << " | bucket " << bucket.filled() << endl;
+        if (LOG)
+        {
+            cout << "_bucket " << _bucket.filled() << " | bucket " << bucket.filled() << endl;
+        }
         
         large tempIndex = _stream.tellp();
         bucket.write(tempIndex, _stream);
