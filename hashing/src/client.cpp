@@ -71,15 +71,3 @@ void Client::show()
          << "discount: " << _discount << endl
          << endl;
 }
-
-
-bool Client::isEmpty()
-{
-    if (_name == "" &&
-        _clientId == 0)
-    {
-        return true;
-    }
-    
-    return false;
-}

@@ -45,8 +45,6 @@ public:
     void setDiscount(int value);
     // displays all the information about a client
     void show();
-    // check if the client has data
-    bool isEmpty();
 };
 
 #endif /* defined(__hashing__client__) */

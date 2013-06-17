@@ -12,7 +12,7 @@
 
 
 // the number of slots in one bucket
-#define COUNT 3
+#define COUNT 1
 // the index of exit in the menu
 #define EXIT_CODE 4
 
@@ -39,7 +39,7 @@ int main(int argc, const char * argv[])
     // default path for the data and access path files
     string path = "/Users/Manuel/Documents";
     
-    string filename =  path.append("/hashfile.txt");
+    string filename =  path.append("/hashfile.dat");
     
     // hash has access to all the data
     HashDat<COUNT> hash(filename);
@@ -125,8 +125,6 @@ int main(int argc, const char * argv[])
             cout << "'" << selection << "' is not defined!" << endl;
         }
 	}
-    
-    hash.saveAccessPath();
     
 	return 0;
 }

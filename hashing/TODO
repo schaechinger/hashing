@@ -10,27 +10,3 @@ Version 1.0
     [-] 2^61 - 1  long    2305843009213693951
     [-] 2^89 - 1          618970019642690137449562111
     [ ] 2^127 - 1 large   170141183460469231731687303715884105727
-
-
-HOLEN
-[x] Hash berechnen
-[x] Index aus Tabelle
-[x] Bucket offset aus Tabelle
-[x] Bucket aus Datei
-
-EINFÜGEN
-[x] Hash berechnen
-[x] Index aus Tabelle
-[x] Bucket lesen
-    [x] Kein Platz:
-        [x] Lokale Tiefe++
-        [x] splitte Bucket
-        [x] lokale Tiefe:
-            [x] > globale Tiefe
-                [x] Tabelle organisieren
-            [x] Tabelle aktualisieren
-
-ACCESSPATH
-[x] OffsetForHash(large hash);
-[x] increaseLocalDepth(large index);
-[x] splitBucket(large index, large bucket);

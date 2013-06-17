@@ -34,6 +34,7 @@ private:
 public:
     // create a new hashdat object and initialize the default data
     HashDat(std::string filename);
+    ~HashDat();
     
     // insert a new client to file and update the access path
     void insert(Client client);
@@ -41,9 +42,6 @@ public:
     Client retrieve(int clientId);
     // list all stored clients in the data file
     void show();
-    
-    // save the access paths to the path file
-    void saveAccessPath();
     
     // the bad article exception is thrown if a client should be
     // inserted to the data file that is already stored in there
@@ -105,6 +103,15 @@ HashDat<count>::HashDat(string filename)
 
 
 template<int count>
+HashDat<count>::~HashDat()
+{
+    _accessPath.save();
+    _stream.close();
+}
+
+
+
+template<int count>
 void HashDat<count>::insert(Client client)
 {
     large hash = _bucket.hash(client.clientId());
@@ -158,15 +165,19 @@ void HashDat<count>::insert(Client client)
         bucket.write(tempIndex, _stream);
         _bucket.write(bucketIndex, _stream);
         _bucket = bucket;
-        bucketIndex = tempIndex;
         
         if (!success)
         {
             insert(client);
         }
+        else
+        {
+            bucketIndex = tempIndex;
+        }
     }
     else
     {
+        bucketIndex = _accessPath.offsetForHash(hash);
         _bucket.write(bucketIndex, _stream);
     }
 }
@@ -227,14 +238,6 @@ void HashDat<count>::show()
             cout << "linker path" << endl << endl;
         }
     }
-}
-
-
-template<int count>
-void HashDat<count>::saveAccessPath()
-{
-    _accessPath.save();
-    _stream.close();
 }
 
 #endif /* defined(__hashing__hashdat__) */
