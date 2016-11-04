@@ -3,7 +3,7 @@
 //  hashing
 //
 //  Created by Manuel Schächinger on 15.05.13.
-//  Copyright (c) 2013 Delivery Studios. All rights reserved.
+//  Copyright (c) 2013 Manuel Schächinger
 //
 
 #ifndef __hashing__accesspath__

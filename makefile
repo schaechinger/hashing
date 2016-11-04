@@ -3,7 +3,7 @@
 #  hashing
 #
 #  Created by Manuel Schächinger on 06.05.2013.
-#  Copyright (c) 2013 Delivery Studios. All rights reserved.
+#  Copyright (c) 2013 Manuel Schächinger
 #
 
 CXXFLAGS := -g -Wall -c -std=c++11
